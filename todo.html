@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>GameZone | Игровой чек-лист</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="todo-header">
+        <h1><i class="fas fa-tasks"></i> Игровой чек-лист</h1>
+        <p>Отмечай пройденные игры и достижения</p>
+    </header>
+
+    <main class="todo-container">
+        <div class="todo-controls">
+            <input type="text" id="task-input" placeholder="Новая задача (например: 'Пройди Cyberpunk')">
+            <input type="date" id="task-date">
+            <select id="task-priority">
+                <option value="low">Низкий</option>
+                <option value="medium" selected>Средний</option>
+                <option value="high">Высокий</option>
+            </select>
+            <button id="add-btn" class="glow-btn">
+                <i class="fas fa-plus"></i> Добавить
+            </button>
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">Все</button>
+            <button class="filter-btn" data-filter="high">Важные</button>
+            <button class="filter-btn" data-filter="medium">Средние</button>
+            <button class="filter-btn" data-filter="low">Несрочные</button>
+        </div>
+
+        <ul id="todo-list" class="todo-list"></ul>
+
+        <div class="todo-actions">
+            <button id="delete-selected" class="action-btn">
+                <i class="fas fa-trash"></i> Удалить выбранные
+            </button>
+        </div>
+    </main>
+
+    <script src="js/todo.js"></script>
+</body>
+
+</html>

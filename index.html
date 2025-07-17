@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>GameZone | Игровой портал</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+ <header class="hero">
+    <!-- Новое навигационное меню -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="logo">GAMEZONE</div>
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> Главная</a></li>
+                <li><a href="feedback.html"><i class="fas fa-comment-dots"></i> Отзывы</a></li>
+                <li><a href="todo.html"><i class="fas fa-tasks"></i> Чек-лист</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="hero-content">
+        <h1>GAME<span>ZONE</span></h1>
+        <p>Твой гид в мире видеоигр</p>
+    </div>
+</header>
+    
+</header>
+    <main class="container">
+        <!-- Новые игровые карточки -->
+        <section class="games-section">
+            <h2>Горячие новинки</h2>
+            <div class="games-grid">
+                <div class="game-card" style="background-image: url('images/cyberpunk.jpg');">
+                    <div class="game-info">
+                        <h3>Cyberpunk 2077</h3>
+                        <div class="game-rating">★★★★☆</div>
+                        <a href="#" class="game-btn">Обзор</a>
+                    </div>
+                </div>
+                
+                <div class="game-card" style="background-image: url('images/elden-ring.jpg');">
+                    <div class="game-info">
+                        <h3>Elden Ring</h3>
+                        <div class="game-rating">★★★★★</div>
+                        <a href="#" class="game-btn">Обзор</a>
+                    </div>
+                </div>
+                
+                <div class="game-card" style="background-image: url('images/hogwarts.jpg');">
+                    <div class="game-info">
+                        <h3>Hogwarts Legacy</h3>
+                        <div class="game-rating">★★★☆☆</div>
+                        <a href="#" class="game-btn">Обзор</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Блок с отзывами -->
+        <section class="feedback-section">
+            <h2>Свежие отзывы</h2>
+            <div id="feedback-preview" class="feedback-grid"></div>
+            
+            <!-- Новая кнопка "Все отзывы" -->
+            <div class="all-reviews-container">
+                <a href="feedback.html" class="all-reviews-btn">
+                    <i class="fas fa-comments"></i> Все отзывы
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="social-links">
+            <a href="https://vk.com/ваша_страница" class="social-link" target="_blank">
+                <i class="fab fa-vk"></i>
+            </a>
+            <a href="https://t.me/ваш_ник" class="social-link" target="_blank">
+                <i class="fab fa-telegram"></i>
+            </a>
+            <a href="#" class="social-link">
+                <i class="fab fa-youtube"></i>
+            </a>
+        </div>
+        <p>GameZone © 2025</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('serviceworker.js')
+      .then(() => console.log("Service Worker зарегистрирован"))
+      .catch(err => console.log("Ошибка регистрации SW", err));
+  }
+</script>
+</body>
+</html>
+
+</body>
+</html>
