@@ -2,96 +2,1121 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>GameZone | Игровой портал</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurum - Роскошная кухня</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="manifest" href="manifest.json">
+    <style>
+        /* Общие стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #d4af37;
+            --dark: #1a1a1a;
+            --light: #f8f8f8;
+            --gray: #e0e0e0;
+            --accent: #a67c00;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Шапка */
+        header {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo i {
+            color: var(--primary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.3rem;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--primary);
+            color: var(--dark);
+            font-size: 0.7rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+        
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        
+        .profile-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: var(--dark);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Главная страница */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            color: var(--light);
+        }
+        
+        .hero-content {
+            max-width: 600px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--dark);
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Специальные предложения */
+        .specials {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .dishes {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .dish-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .dish-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .dish-img {
+            height: 200px;
+            background-color: var(--gray);
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .dish-info {
+            padding: 20px;
+        }
+        
+        .dish-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .dish-price {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .dish-desc {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        
+        .add-to-cart {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--dark);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .add-to-cart:hover {
+            background-color: var(--primary);
+            color: var(--dark);
+        }
+        
+        /* Страницы */
+        .page {
+            display: none;
+            padding: 60px 0;
+            min-height: 70vh;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        /* Корзина */
+        .cart-container {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .cart-items {
+            flex: 2;
+        }
+        
+        .cart-summary {
+            flex: 1;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            align-self: flex-start;
+        }
+        
+        .cart-item {
+            display: flex;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cart-item-img {
+            width: 150px;
+            height: 150px;
+            background-color: var(--gray);
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .cart-item-info {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .cart-item-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: var(--gray);
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .quantity {
+            font-weight: bold;
+            min-width: 30px;
+            text-align: center;
+        }
+        
+        .remove-item {
+            background: none;
+            border: none;
+            color: #ff4d4d;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+        
+        .summary-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--gray);
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .summary-total {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 20px 0;
+            padding-top: 10px;
+            border-top: 1px solid var(--gray);
+        }
+        
+        /* Форма заказа */
+        .order-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--gray);
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        /* Форма обратной связи */
+        .contact-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* Подвал */
+        footer {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 50px 0 20px;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            line-height: 1.8;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            border-radius: 50%;
+            color: var(--light);
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            color: var(--dark);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 900px) {
+            .cart-container {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background-color: var(--dark);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                gap: 20px;
+                transform: translateY(-150%);
+                transition: transform 0.3s;
+            }
+            
+            nav ul.active {
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                height: 500px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .cart-item {
+                flex-direction: column;
+            }
+            
+            .cart-item-img {
+                width: 100%;
+                height: 200px;
+            }
+        }
+    </style>
 </head>
 <body>
- <header class="hero">
-    <!-- Новое навигационное меню -->
-    <nav class="main-nav">
-        <div class="nav-container">
-            <div class="logo">GAMEZONE</div>
-            <ul class="nav-links">
-                <li><a href="index.html"><i class="fas fa-home"></i> Главная</a></li>
-                <li><a href="feedback.html"><i class="fas fa-comment-dots"></i> Отзывы</a></li>
-                <li><a href="todo.html"><i class="fas fa-tasks"></i> Чек-лист</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <div class="hero-content">
-        <h1>GAME<span>ZONE</span></h1>
-        <p>Твой гид в мире видеоигр</p>
-    </div>
-</header>
-    
-</header>
-    <main class="container">
-        <!-- Новые игровые карточки -->
-        <section class="games-section">
-            <h2>Горячие новинки</h2>
-            <div class="games-grid">
-                <div class="game-card" style="background-image: url('images/cyberpunk.jpg');">
-                    <div class="game-info">
-                        <h3>Cyberpunk 2077</h3>
-                        <div class="game-rating">★★★★☆</div>
-                        <a href="#" class="game-btn">Обзор</a>
-                    </div>
-                </div>
-                
-                <div class="game-card" style="background-image: url('images/elden-ring.jpg');">
-                    <div class="game-info">
-                        <h3>Elden Ring</h3>
-                        <div class="game-rating">★★★★★</div>
-                        <a href="#" class="game-btn">Обзор</a>
-                    </div>
-                </div>
-                
-                <div class="game-card" style="background-image: url('images/hogwarts.jpg');">
-                    <div class="game-info">
-                        <h3>Hogwarts Legacy</h3>
-                        <div class="game-rating">★★★☆☆</div>
-                        <a href="#" class="game-btn">Обзор</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Блок с отзывами -->
-        <section class="feedback-section">
-            <h2>Свежие отзывы</h2>
-            <div id="feedback-preview" class="feedback-grid"></div>
+    <!-- Шапка -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo" data-page="home">
+                <i class="fas fa-crown"></i>
+                <span>AURUM</span>
+            </a>
             
-            <!-- Новая кнопка "Все отзывы" -->
-            <div class="all-reviews-container">
-                <a href="feedback.html" class="all-reviews-btn">
-                    <i class="fas fa-comments"></i> Все отзывы
-                </a>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul>
+                    <li><a href="#" data-page="home">Главная</a></li>
+                    <li><a href="#" data-page="menu">Меню</a></li>
+                    <li><a href="#" data-page="cart">Корзина</a></li>
+                    <li><a href="#" data-page="contact">Обратная связь</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+                <div class="cart-icon" data-page="cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </div>
+                <div class="profile">
+                    <div class="profile-img">ИИ</div>
+                    <span>Иван Иванов</span>
+                </div>
             </div>
-        </section>
-    </main>
-
-    <footer class="site-footer">
-        <div class="social-links">
-            <a href="https://vk.com/ваша_страница" class="social-link" target="_blank">
-                <i class="fab fa-vk"></i>
-            </a>
-            <a href="https://t.me/ваш_ник" class="social-link" target="_blank">
-                <i class="fab fa-telegram"></i>
-            </a>
-            <a href="#" class="social-link">
-                <i class="fab fa-youtube"></i>
-            </a>
         </div>
-        <p>GameZone © 2025</p>
+    </header>
+
+    <!-- Главная страница -->
+    <section id="home" class="page active">
+        <div class="hero">
+            <div class="container hero-content">
+                <h1>Роскошная кухня в стиле Aurum</h1>
+                <p>Погрузитесь в мир изысканных вкусов и непревзойденного сервиса. Наши шеф-повара создают настоящие шедевры из лучших ингредиентов.</p>
+                
+            </div>
+        </div>
+        
+        <div class="specials">
+            <div class="container">
+                <h2 class="section-title">Наши специальные предложения</h2>
+                <div class="dishes">
+                    <div class="dish-card">
+                        <div class="dish-img" style="background-image: url('https://i.pinimg.com/originals/ac/e6/c0/ace6c0b32b65f93df7ea00f054e085d4.jpg')"></div>
+                        <div class="dish-info">
+                            <div class="dish-title">
+                                <span>Стейк Рибай</span>
+                                <span class="dish-price">1890 ₽</span>
+                            </div>
+                            <p class="dish-desc">Премиальный кусок говядины с овощами гриль и соусом песто</p>
+                            <button class="add-to-cart" data-id="1" data-name="Стейк Рибай" data-price="1890">В корзину</button>
+                        </div>
+                    </div>
+                    
+                    <div class="dish-card">
+                        <div class="dish-img" style="background-image: url('https://avatars.mds.yandex.net/i?id=194c8282fff3a6122bd5d21654f2608efb35f957-5277319-images-thumbs&n=13')"></div>
+                        <div class="dish-info">
+                            <div class="dish-title">
+                                <span>Тартар из лосося</span>
+                                <span class="dish-price">1250 ₽</span>
+                            </div>
+                            <p class="dish-desc">Нежный лосось с авокадо, каперсами и цитрусовым соусом</p>
+                            <button class="add-to-cart" data-id="2" data-name="Тартар из лосося" data-price="1250">В корзину</button>
+                        </div>
+                    </div>
+                    
+                    <div class="dish-card">
+                        <div class="dish-img" style="background-image: url('https://avatars.mds.yandex.net/i?id=ee36eb0c925060ebb2d53f23ed0c50ef28e4e256-10157623-images-thumbs&n=13')"></div>
+                        <div class="dish-info">
+                            <div class="dish-title">
+                                <span>Трюфельные равиоли</span>
+                                <span class="dish-price">1450 ₽</span>
+                            </div>
+                            <p class="dish-desc">Домашние равиоли с трюфельной начинкой и пармезаном</p>
+                            <button class="add-to-cart" data-id="3" data-name="Трюфельные равиоли" data-price="1450">В корзину</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Страница меню -->
+    <section id="menu" class="page">
+        <div class="container">
+            <h2 class="section-title">Наше меню</h2>
+            <div class="dishes">
+                <!-- Блюда будут добавляться динамически -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Страница корзины -->
+    <section id="cart" class="page">
+        <div class="container">
+            <h2 class="section-title">Ваша корзина</h2>
+            <div class="cart-container">
+                <div class="cart-items">
+                    <!-- Товары в корзине -->
+                </div>
+                <div class="cart-summary">
+                    <h3 class="summary-title">Ваш заказ</h3>
+                    <div class="summary-row">
+                        <span>Товары:</span>
+                        <span id="items-total">0 ₽</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Доставка:</span>
+                        <span>500 ₽</span>
+                    </div>
+                    <div class="summary-row summary-total">
+                        <span>Итого:</span>
+                        <span id="order-total">500 ₽</span>
+                    </div>
+                    <button class="btn" id="checkout-btn">Оформить заказ</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Страница оформления заказа -->
+    <section id="checkout" class="page">
+        <div class="container">
+            <h2 class="section-title">Оформление заказа</h2>
+            <form class="order-form">
+                <div class="form-group">
+                    <label for="name">Имя</label>
+                    <input type="text" id="name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Телефон</label>
+                    <input type="tel" id="phone" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Адрес доставки</label>
+                    <input type="text" id="address" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Время доставки</label>
+                    <input type="time" id="time" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="comment">Комментарий к заказу</label>
+                    <textarea id="comment" class="form-control"></textarea>
+                </div>
+                <button type="submit" class="btn">Подтвердить заказ</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Страница обратной связи -->
+    <section id="contact" class="page">
+        <div class="container">
+            <h2 class="section-title">Обратная связь</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="contact-name">Ваше имя</label>
+                    <input type="text" id="contact-name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-email">Email</label>
+                    <input type="email" id="contact-email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-phone">Телефон</label>
+                    <input type="tel" id="contact-phone" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Сообщение</label>
+                    <textarea id="message" class="form-control" required></textarea>
+                </div>
+                <button type="submit" class="btn">Отправить</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>О нас</h3>
+                    <p>Ресторан Aurum - это сочетание изысканной кухни, роскошного интерьера и безупречного сервиса. Мы создаем незабываемые гастрономические впечатления.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Часы работы</h3>
+                    <p>Пн-Чт: 12:00 - 00:00</p>
+                    <p>Пт-Сб: 12:00 - 02:00</p>
+                    <p>Вс: 12:00 - 23:00</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Москва, ул. Тверская, 10</p>
+                    <p><i class="fas fa-phone"></i> +7 (495) 123-45-67</p>
+                    <p><i class="fas fa-envelope"></i> info@aurum-restaurant.ru</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2023 Ресторан Aurum. Все права защищены.
+            </div>
+        </div>
     </footer>
 
-    <script src="main.js"></script>
-
-</body>
-</html>
-
+    <script>
+        // Данные для меню
+        const menuItems = [
+            { id: 1, name: "Стейк Рибай", price: 1890, category: "Основные блюда", img: "https://i.pinimg.com/originals/ac/e6/c0/ace6c0b32b65f93df7ea00f054e085d4.jpg" },
+            { id: 2, name: "Тартар из лосося", price: 1250, category: "Закуски", img: "https://avatars.mds.yandex.net/i?id=194c8282fff3a6122bd5d21654f2608efb35f957-5277319-images-thumbs&n=13" },
+            { id: 3, name: "Трюфельные равиоли", price: 1450, category: "Основные блюда", img: "https://avatars.mds.yandex.net/i?id=ee36eb0c925060ebb2d53f23ed0c50ef28e4e256-10157623-images-thumbs&n=13" },
+            { id: 4, name: "Цезарь с креветками", price: 890, category: "Салаты", img: "https://avatars.mds.yandex.net/i?id=92e71cd44be14d0b3bace1fba86dc591ce43e7d5-5250913-images-thumbs&n=13" },
+            { id: 5, name: "Тирамису", price: 650, category: "Десерты", img: "https://avatars.mds.yandex.net/i?id=1690c11597118ecf874b63190eeefe5445604a80-9853874-images-thumbs&n=13" },
+            { id: 6, name: "Устрицы", price: 290, category: "Закуски", img: "https://sev.gov.ru/files/iblock/ba6/tradeboardy4el9r_img.jpeg" },
+            { id: 7, name: "Фуа-гра", price: 1350, category: "Закуски", img: "https://avatars.mds.yandex.net/i?id=a4f5a380bfc8efa28f1146ed2f342197d0a09a82-5229055-images-thumbs&n=13" },
+            { id: 8, name: "Шоколадный фондан", price: 550, category: "Десерты", img: "https://avatars.mds.yandex.net/i?id=def7b0a92c4bc2b3e6acee52369468a3aa54f87e-4220121-images-thumbs&n=13" }
+        ];
+        
+        // Корзина
+        let cart = [];
+        
+        // DOM элементы
+        const pages = document.querySelectorAll('.page');
+        const navLinks = document.querySelectorAll('nav a, .logo, .cart-icon');
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('nav ul');
+        const cartCount = document.querySelector('.cart-count');
+        const cartItemsEl = document.querySelector('.cart-items');
+        const itemsTotalEl = document.getElementById('items-total');
+        const orderTotalEl = document.getElementById('order-total');
+        const dishesContainer = document.querySelector('#menu .dishes');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const orderForm = document.querySelector('.order-form');
+        const contactForm = document.querySelector('.contact-form');
+        
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', () => {
+            // Загружаем меню
+            loadMenu();
+            
+            // Загружаем корзину из localStorage
+            loadCart();
+            
+            // Обновляем счетчик корзины
+            updateCartCount();
+        });
+        
+        // Загрузка меню
+        function loadMenu() {
+            dishesContainer.innerHTML = '';
+            
+            // Группируем блюда по категориям
+            const categories = {};
+            menuItems.forEach(item => {
+                if (!categories[item.category]) {
+                    categories[item.category] = [];
+                }
+                categories[item.category].push(item);
+            });
+            
+            // Создаем секции для каждой категории
+            for (const category in categories) {
+                const categorySection = document.createElement('div');
+                categorySection.classList.add('category-section');
+                categorySection.innerHTML = `
+                    <h3 style="margin: 30px 0 20px; font-size: 1.5rem; color: var(--dark);">${category}</h3>
+                    <div class="dishes-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px;"></div>
+                `;
+                
+                const dishesGrid = categorySection.querySelector('.dishes-grid');
+                
+                categories[category].forEach(item => {
+                    const dishCard = document.createElement('div');
+                    dishCard.classList.add('dish-card');
+                    dishCard.innerHTML = `
+                        <div class="dish-img" style="background-image: url('${item.img}')"></div>
+                        <div class="dish-info">
+                            <div class="dish-title">
+                                <span>${item.name}</span>
+                                <span class="dish-price">${item.price} ₽</span>
+                            </div>
+                            <p class="dish-desc">Вкусное блюдо из нашего меню</p>
+                            <button class="add-to-cart" data-id="${item.id}" data-name="${item.name}" data-price="${item.price}">В корзину</button>
+                        </div>
+                    `;
+                    dishesGrid.appendChild(dishCard);
+                });
+                
+                dishesContainer.appendChild(categorySection);
+            }
+            
+            // Добавляем обработчики событий для кнопок добавления в корзину
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', addToCart);
+            });
+        }
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registered with scope:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.error('Service Worker registration failed:', error);
+                    });
+            });
+        }
+        // Навигация
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = link.getAttribute('data-page');
+                showPage(pageId);
+                
+                // Закрываем мобильное меню
+                navMenu.classList.remove('active');
+            });
+        });
+        
+        // Показать страницу
+        function showPage(pageId) {
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+            
+            // Если открываем корзину - обновляем ее
+            if (pageId === 'cart') {
+                updateCart();
+            }
+        }
+        
+        // Мобильное меню
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+        
+        // Добавление в корзину
+        function addToCart(e) {
+            const button = e.target;
+            const id = button.getAttribute('data-id');
+            const name = button.getAttribute('data-name');
+            const price = parseInt(button.getAttribute('data-price'));
+            
+            // Проверяем, есть ли товар уже в корзине
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                // Увеличиваем количество
+                existingItem.quantity++;
+            } else {
+                // Добавляем новый товар
+                cart.push({
+                    id,
+                    name,
+                    price,
+                    quantity: 1
+                });
+            }
+            
+            // Обновляем корзину
+            updateCartCount();
+            saveCart();
+            
+            // Анимация добавления
+            button.textContent = 'Добавлено!';
+            button.style.backgroundColor = '#4CAF50';
+            setTimeout(() => {
+                button.textContent = 'В корзину';
+                button.style.backgroundColor = '';
+            }, 1000);
+        }
+        
+        // Обновление счетчика корзины
+        function updateCartCount() {
+            const totalCount = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalCount;
+        }
+        
+        // Обновление корзины
+        function updateCart() {
+            cartItemsEl.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItemsEl.innerHTML = '<p>Ваша корзина пуста</p>';
+                itemsTotalEl.textContent = '0 ₽';
+                orderTotalEl.textContent = '500 ₽';
+                return;
+            }
+            
+            let itemsTotal = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                itemsTotal += itemTotal;
+                
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+                cartItem.innerHTML = `
+                    <div class="cart-item-img" style="background-image: url('${menuItems.find(i => i.id == item.id).img}')"></div>
+                    <div class="cart-item-info">
+                        <div class="cart-item-title">
+                            <span>${item.name}</span>
+                            <span class="cart-item-price">${itemTotal} ₽</span>
+                        </div>
+                        <div class="cart-item-actions">
+                            <button class="quantity-btn minus" data-id="${item.id}">-</button>
+                            <span class="quantity">${item.quantity}</span>
+                            <button class="quantity-btn plus" data-id="${item.id}">+</button>
+                            <button class="remove-item" data-id="${item.id}"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+                cartItemsEl.appendChild(cartItem);
+            });
+            
+            itemsTotalEl.textContent = itemsTotal + ' ₽';
+            orderTotalEl.textContent = (itemsTotal + 500) + ' ₽';
+            
+            // Добавляем обработчики событий для кнопок в корзине
+            document.querySelectorAll('.quantity-btn.minus').forEach(btn => {
+                btn.addEventListener('click', decreaseQuantity);
+            });
+            
+            document.querySelectorAll('.quantity-btn.plus').forEach(btn => {
+                btn.addEventListener('click', increaseQuantity);
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(btn => {
+                btn.addEventListener('click', removeItem);
+            });
+        }
+        
+        // Уменьшение количества товара
+        function decreaseQuantity(e) {
+            const id = e.target.getAttribute('data-id');
+            const item = cart.find(item => item.id === id);
+            
+            if (item.quantity > 1) {
+                item.quantity--;
+            } else {
+                cart = cart.filter(item => item.id !== id);
+            }
+            
+            updateCart();
+            updateCartCount();
+            saveCart();
+        }
+        
+        // Увеличение количества товара
+        function increaseQuantity(e) {
+            const id = e.target.getAttribute('data-id');
+            const item = cart.find(item => item.id === id);
+            item.quantity++;
+            
+            updateCart();
+            updateCartCount();
+            saveCart();
+        }
+        
+        // Удаление товара
+        function removeItem(e) {
+            const id = e.target.closest('.remove-item').getAttribute('data-id');
+            cart = cart.filter(item => item.id !== id);
+            
+            updateCart();
+            updateCartCount();
+            saveCart();
+        }
+        
+        // Оформление заказа
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert('Ваша корзина пуста!');
+                return;
+            }
+            
+            showPage('checkout');
+        });
+        
+        // Отправка формы заказа
+        orderForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Здесь должна быть логика отправки данных на сервер
+            alert('Ваш заказ успешно оформлен! С вами свяжутся для подтверждения.');
+            
+            // Очищаем корзину
+            cart = [];
+            updateCartCount();
+            saveCart();
+            
+            // Переходим на главную
+            showPage('home');
+        });
+        
+        // Отправка формы обратной связи
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Здесь должна быть логика отправки данных на сервер
+            alert('Ваше сообщение отправлено! Мы свяжемся с вами в ближайшее время.');
+            
+            // Очищаем форму
+            contactForm.reset();
+        });
+        
+        // Сохранение корзины в localStorage
+        function saveCart() {
+            localStorage.setItem('aurumCart', JSON.stringify(cart));
+        }
+        
+        // Загрузка корзины из localStorage
+        function loadCart() {
+            const savedCart = localStorage.getItem('aurumCart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+            }
+        }
+    </script>
 </body>
 </html>
